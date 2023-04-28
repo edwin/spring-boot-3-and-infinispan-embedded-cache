@@ -4,7 +4,6 @@ package com.edw.bean;
 import org.infinispan.api.annotations.indexing.Basic;
 import org.infinispan.api.annotations.indexing.Indexed;
 import org.infinispan.api.annotations.indexing.Keyword;
-import org.infinispan.api.annotations.indexing.Text;
 
 import java.io.Serializable;
 
@@ -19,16 +18,16 @@ import java.io.Serializable;
 @Indexed
 public class User  implements Serializable {
 
-    @Keyword
+    @Keyword(projectable = true, sortable = true, normalizer = "lowercase", indexNullAs = "unnamed", norms = false)
     private String name;
 
-    @Basic
+    @Basic(projectable = true, sortable = true, indexNullAs = "0")
     private Integer age;
 
-    @Text
+    @Basic(projectable = true, sortable = true, indexNullAs = "")
     private String address;
 
-    @Text
+    @Basic(projectable = true, sortable = true, indexNullAs = "")
     private String province;
 
     public User() {

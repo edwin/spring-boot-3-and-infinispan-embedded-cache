@@ -1,13 +1,10 @@
 package com.edw.config;
 
-import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
-import org.infinispan.configuration.cache.Index;
+import org.infinispan.configuration.cache.IndexStorage;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.spring.starter.embedded.InfinispanCacheConfigurer;
-import org.infinispan.spring.starter.embedded.InfinispanConfigurationCustomizer;
-import org.infinispan.spring.starter.embedded.InfinispanGlobalConfigurationCustomizer;
 import org.infinispan.spring.starter.embedded.InfinispanGlobalConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +27,9 @@ public class InfinispanConfiguration {
     public InfinispanCacheConfigurer infinispanCacheConfigurer() {
         return manager -> {
             org.infinispan.configuration.cache.Configuration userCacheConfig = new ConfigurationBuilder()
-                    .indexing()
+                    .indexing().enable().path("D:\\tmp\\")
+                    .storage(IndexStorage.FILESYSTEM)
+                    .addIndexedEntities("com.edw.bean.User")
                     .build();
 
             manager.defineConfiguration("user-cache", userCacheConfig);
