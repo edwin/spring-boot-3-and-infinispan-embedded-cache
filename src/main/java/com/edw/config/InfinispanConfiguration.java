@@ -27,8 +27,7 @@ public class InfinispanConfiguration {
     public InfinispanCacheConfigurer infinispanCacheConfigurer() {
         return manager -> {
             org.infinispan.configuration.cache.Configuration userCacheConfig = new ConfigurationBuilder()
-                    .indexing().enable().path("D:\\tmp\\")
-                    .storage(IndexStorage.FILESYSTEM)
+                    .indexing().enable()
                     .addIndexedEntities("com.edw.bean.User")
                     .build();
 
